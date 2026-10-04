@@ -84,7 +84,7 @@
   <h3 class="sec"><ion-icon name="briefcase" color="tertiary"></ion-icon> My Applications</h3>
   <ion-card class="block">
     <ion-list lines="inset">
-      <ion-item *ngFor="let x of appliedCompanies()">
+      <ion-item *ngFor="let x of applied; trackBy: trackByApp">
         <div class="mini-logo" slot="start" [style.background]="x.company.color">{{ x.company.name.charAt(0) }}</div>
         <ion-label>
           <h3>{{ x.company.name }}</h3>

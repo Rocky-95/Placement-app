@@ -10,7 +10,8 @@ import { DataService } from '../../services/data.service';
   selector: 'app-student-tabs',
   template: `
     <ion-tabs>
-      <ion-fab vertical="bottom" horizontal="end">
+      <ion-fab vertical="bottom" horizontal="end"
+               style="bottom: calc(76px + var(--ion-safe-area-bottom, 0px))">
         <ion-fab-button routerLink="/student/chat" aria-label="Chat with placement assistant">
           <ion-icon name="chatbubble-ellipses"></ion-icon>
         </ion-fab-button>

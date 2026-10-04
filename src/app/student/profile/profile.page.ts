@@ -10,7 +10,7 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { DataService } from '../../services/data.service';
 import { PredictionService } from '../../services/prediction.service';
-import { Student } from '../../models/models';
+import { Application, Company, Student } from '../../models/models';
 import { EditProfileComponent } from './edit-profile.component';
 
 @Component({
@@ -22,6 +22,7 @@ import { EditProfileComponent } from './edit-profile.component';
 export class ProfilePage {
   student!: Student;
   score = 0;
+  applied: { app: Application; company: Company }[] = [];
 
   constructor(
     private auth: AuthService,
@@ -38,6 +39,9 @@ export class ProfilePage {
     if (s) {
       this.student = s;
       this.score = this.pred.predict(s).score;
+      this.applied = this.data.applicationsOf(s.id)
+        .map(a => ({ app: a, company: this.data.getCompany(a.companyId)! }))
+        .filter((x): x is { app: Application; company: Company } => !!x.company);
     }
   }
 
@@ -46,13 +50,11 @@ export class ProfilePage {
   }
 
   appliedCount(): number {
-    return this.data.applicationsOf(this.student.id).length;
+    return this.applied.length;
   }
 
-  appliedCompanies() {
-    return this.data.applicationsOf(this.student.id)
-      .map(a => ({ app: a, company: this.data.getCompany(a.companyId)! }))
-      .filter(x => !!x.company);
+  trackByApp(_: number, x: { app: Application }) {
+    return x.app.companyId;
   }
 
   async edit() {
