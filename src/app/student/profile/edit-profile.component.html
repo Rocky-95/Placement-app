@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="close()"><ion-icon name="close" slot="icon-only"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Edit Profile</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="save()"><ion-icon name="checkmark" slot="start"></ion-icon>Save</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item lines="full" class="fld">
+    <ion-input [(ngModel)]="student.phone" label="Phone" labelPlacement="floating"></ion-input>
+  </ion-item>
+
+  <ion-item lines="full" class="fld">
+    <ion-select [(ngModel)]="student.department" label="Department" labelPlacement="floating">
+      <ion-select-option *ngFor="let d of departments" [value]="d">{{ d }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <div class="range-fld">
+    <div class="rf-head"><span>CGPA</span><b>{{ student.cgpa.toFixed(1) }}</b></div>
+    <ion-range [(ngModel)]="student.cgpa" [min]="5" [max]="10" [step]="0.1"
+               color="primary" [pin]="true"></ion-range>
+  </div>
+
+  <div class="range-fld">
+    <div class="rf-head"><span>Standing arrears</span><b>{{ student.arrears }}</b></div>
+    <ion-range [(ngModel)]="student.arrears" [min]="0" [max]="8" [step]="1" [snaps]="true"
+               color="warning" [pin]="true"></ion-range>
+  </div>
+
+  <h4 class="lbl">Skills</h4>
+  <div class="skills">
+    <ion-chip *ngFor="let sk of allSkills" (click)="toggleSkill(sk)"
+              [color]="hasSkill(sk) ? 'primary' : 'medium'" [outline]="!hasSkill(sk)">
+      <ion-label>{{ sk }}</ion-label>
+      <ion-icon *ngIf="hasSkill(sk)" name="checkmark"></ion-icon>
+    </ion-chip>
+  </div>
+
+  <h4 class="lbl">Certifications</h4>
+  <ion-item lines="full" class="fld cert-input">
+    <ion-input [(ngModel)]="newCert" placeholder="e.g. AWS Cloud Practitioner"
+               (keyup.enter)="addCert()"></ion-input>
+    <ion-button slot="end" fill="clear" (click)="addCert()">
+      <ion-icon name="add" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <div class="skills">
+    <ion-chip *ngFor="let c of student.certifications; let i = index" color="warning" outline>
+      <ion-label>{{ c }}</ion-label>
+      <ion-icon name="remove-circle" (click)="removeCert(i)"></ion-icon>
+    </ion-chip>
+  </div>
+
+  <ion-button expand="block" class="save" (click)="save()">
+    <ion-icon name="checkmark" slot="start"></ion-icon>Save &amp; Recalculate AI Score
+  </ion-button>
+</ion-content>

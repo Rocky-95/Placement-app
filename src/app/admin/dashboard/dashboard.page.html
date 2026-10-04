@@ -1,0 +1,86 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>
+      <div class="brand">
+        <img src="assets/logo.svg" alt="logo" />
+        <span>Placement Cell · Admin</span>
+      </div>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()"><ion-icon name="log-out" slot="icon-only"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Overview stats -->
+  <ion-grid class="stats">
+    <ion-row>
+      <ion-col size="6">
+        <div class="stat">
+          <div class="si primary"><ion-icon name="people"></ion-icon></div>
+          <b>{{ total }}</b><span>Students</span>
+        </div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="stat">
+          <div class="si success"><ion-icon name="trophy"></ion-icon></div>
+          <b>{{ placed }}</b><span>Placed</span>
+        </div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="stat">
+          <div class="si warning"><ion-icon name="briefcase"></ion-icon></div>
+          <b>{{ activeDrives }}</b><span>Active Drives</span>
+        </div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="stat">
+          <div class="si tertiary"><ion-icon name="school"></ion-icon></div>
+          <b>{{ avgCgpa }}</b><span>Avg CGPA</span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Placement rate -->
+  <ion-card class="rate-card">
+    <ion-card-content>
+      <div class="rate-head">
+        <div>
+          <h3>Overall Placement Rate</h3>
+          <p>{{ placed }} of {{ total }} students placed</p>
+        </div>
+        <b class="big">{{ placedPct }}%</b>
+      </div>
+      <ion-progress-bar [value]="placedPct / 100" color="success"></ion-progress-bar>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Dept breakdown -->
+  <h3 class="sec"><ion-icon name="stats-chart" color="primary"></ion-icon> Department-wise Placements</h3>
+  <ion-card class="dept-card">
+    <ion-card-content>
+      <div class="dept" *ngFor="let d of deptStats">
+        <div class="d-head"><span>{{ d.dept }}</span><b>{{ d.placed }}/{{ d.total }} · {{ d.pct }}%</b></div>
+        <div class="bar"><div class="fill" [style.width.%]="d.pct"></div></div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Top drives -->
+  <h3 class="sec"><ion-icon name="trending-up" color="tertiary"></ion-icon> Most Applied Drives</h3>
+  <ion-card class="drives-card">
+    <ion-list lines="inset">
+      <ion-item *ngFor="let t of topDrives">
+        <div class="tlogo" slot="start" [style.background]="t.color">{{ t.name.charAt(0) }}</div>
+        <ion-label>
+          <h3>{{ t.name }}</h3>
+          <p>{{ t.days > 0 ? t.days + ' days left' : 'Closed' }}</p>
+        </ion-label>
+        <ion-badge slot="end" color="primary">{{ t.applicants }} applied</ion-badge>
+      </ion-item>
+      <ion-item *ngIf="!topDrives.length"><ion-label>No applications yet</ion-label></ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,72 @@
+<ion-content class="login-content" [scrollY]="true">
+  <div class="hero">
+    <img src="assets/logo.svg" alt="PlaceIQ logo" class="logo" />
+    <h1>PlaceIQ</h1>
+    <p>AI Placement Prediction &amp; Management</p>
+    <div class="college">
+      <ion-icon name="school"></ion-icon>
+      <span>Theivanai Ammal College for Women</span>
+    </div>
+  </div>
+
+  <div class="form-wrap">
+    <ion-card class="login-card">
+      <ion-card-content>
+        <ion-segment [(ngModel)]="role" (ionChange)="email=''; password=''">
+          <ion-segment-button value="student">
+            <ion-icon name="person-circle"></ion-icon>
+            <ion-label>Student</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="admin">
+            <ion-icon name="shield-checkmark"></ion-icon>
+            <ion-label>Admin</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+        <ion-item lines="full" class="input-item">
+          <ion-icon name="mail" slot="start" color="medium"></ion-icon>
+          <ion-input [(ngModel)]="email" type="email" label="Email" labelPlacement="floating"
+                     placeholder="you@tacw.edu" (keyup.enter)="login()"></ion-input>
+        </ion-item>
+
+        <ion-item lines="full" class="input-item">
+          <ion-icon name="lock-closed" slot="start" color="medium"></ion-icon>
+          <ion-input [(ngModel)]="password" [type]="showPassword ? 'text' : 'password'"
+                     label="Password" labelPlacement="floating" placeholder="••••••••"
+                     (keyup.enter)="login()"></ion-input>
+          <ion-button fill="clear" slot="end" (click)="showPassword = !showPassword">
+            <ion-icon [name]="showPassword ? 'eye-off' : 'eye'" slot="icon-only" color="medium"></ion-icon>
+          </ion-button>
+        </ion-item>
+
+        <ion-button expand="block" class="login-btn" (click)="login()" [disabled]="loading">
+          <ion-icon name="log-in" slot="start"></ion-icon>
+          {{ loading ? 'Signing in…' : 'Sign In as ' + (role === 'admin' ? 'Admin' : 'Student') }}
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="demo-card">
+      <ion-card-content>
+        <div class="demo-title">
+          <ion-icon name="information-circle" color="primary"></ion-icon>
+          <strong>Demo credentials</strong>
+          <ion-button size="small" fill="outline" (click)="fillDemo()">Autofill</ion-button>
+        </div>
+        <div class="cred-row">
+          <ion-icon name="person-circle" color="primary"></ion-icon>
+          <span>Student — <b>student@tacw.edu</b> / <b>student123</b></span>
+        </div>
+        <div class="cred-row">
+          <ion-icon name="shield-checkmark" color="tertiary"></ion-icon>
+          <span>Admin — <b>admin@tacw.edu</b> / <b>admin123</b></span>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <p class="foot">
+      <ion-icon name="sparkles"></ion-icon>
+      Powered by AI-based placement prediction
+    </p>
+  </div>
+</ion-content>

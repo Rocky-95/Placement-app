@@ -1,0 +1,91 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar [style.--background]="course.color" class="detail-bar">
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()"><ion-icon name="close" slot="icon-only"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>{{ course.title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="head">
+    <div class="bigtile" [style.background]="course.color">
+      <ion-icon [name]="course.icon"></ion-icon>
+    </div>
+    <h2>{{ course.title }}</h2>
+    <p>{{ course.category }} · {{ course.level }}</p>
+    <ion-badge *ngIf="enrolled" color="tertiary" class="pill">
+      <ion-icon name="checkmark-circle"></ion-icon> Enrolled — {{ progress() }}% done
+    </ion-badge>
+  </div>
+
+  <ion-grid class="facts">
+    <ion-row>
+      <ion-col size="6">
+        <div class="fact"><ion-icon name="star" color="warning"></ion-icon><b>{{ course.rating }} / 5</b><span>Rating</span></div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="fact"><ion-icon name="people" color="primary"></ion-icon><b>{{ course.learners }}</b><span>Learners</span></div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="fact"><ion-icon name="layers" color="tertiary"></ion-icon><b>{{ course.modules.length }} modules · {{ lessonCount() }} lessons</b><span>Syllabus</span></div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="fact"><ion-icon name="time" color="danger"></ion-icon><b>{{ hours() }} hrs</b><span>Duration</span></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="progress-wrap" *ngIf="enrolled">
+    <ion-progress-bar [value]="progress() / 100" [color]="progress() === 100 ? 'success' : 'tertiary'"></ion-progress-bar>
+  </div>
+
+  <p class="desc">{{ course.description }}</p>
+
+  <h3 class="sec"><ion-icon name="ribbon"></ion-icon> What you'll learn</h3>
+  <ion-list class="outcomes">
+    <ion-item *ngFor="let o of course.outcomes" lines="none">
+      <ion-icon slot="start" name="checkmark-done" color="success"></ion-icon>
+      <ion-label class="ion-text-wrap">{{ o }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <h3 class="sec"><ion-icon name="sparkles"></ion-icon> Course content</h3>
+  <ion-accordion-group class="modules" [multiple]="true">
+    <ion-accordion *ngFor="let m of course.modules; let i = index" [value]="'m' + i">
+      <ion-item slot="header" lines="none">
+        <ion-label>
+          <h3>Module {{ i + 1 }}: {{ m.title }}</h3>
+          <p>{{ m.lessons.length }} lessons · {{ moduleMinutes(m) }} min</p>
+        </ion-label>
+      </ion-item>
+      <div slot="content" class="lessons">
+        <div *ngFor="let l of m.lessons" class="lesson" [class.done]="isDone(l)"
+             (click)="toggle(l)" [class.clickable]="enrolled">
+          <ion-icon class="tick" *ngIf="enrolled"
+                    [name]="isDone(l) ? 'checkmark-circle' : 'ellipse-outline'"
+                    [color]="isDone(l) ? 'success' : 'medium'"></ion-icon>
+          <div class="lbody">
+            <b>{{ l.title }}</b>
+            <span><ion-icon name="play-circle"></ion-icon> {{ l.minutes }} min</span>
+            <ul>
+              <li *ngFor="let p of l.points">{{ p }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+
+  <div class="actions">
+    <ion-button expand="block" size="large" (click)="enroll()" *ngIf="!enrolled">
+      <ion-icon name="play-circle" slot="start"></ion-icon>
+      Enroll — Start Learning
+    </ion-button>
+    <ion-button expand="block" size="large" *ngIf="enrolled && progress() === 100" color="success" disabled>
+      <ion-icon name="checkmark-done" slot="start"></ion-icon>
+      Course Completed
+    </ion-button>
+    <p class="hint" *ngIf="enrolled && progress() < 100">Tap the circle next to a lesson to mark it complete.</p>
+  </div>
+</ion-content>

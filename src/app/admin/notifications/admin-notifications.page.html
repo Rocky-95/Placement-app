@@ -1,0 +1,49 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>Notifications</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Composer -->
+  <ion-card class="composer">
+    <ion-card-header>
+      <ion-card-title><ion-icon name="megaphone"></ion-icon> Publish Notification</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-segment [(ngModel)]="type" mode="md" class="type-seg">
+        <ion-segment-button value="drive"><ion-label>Drive</ion-label></ion-segment-button>
+        <ion-segment-button value="deadline"><ion-label>Deadline</ion-label></ion-segment-button>
+        <ion-segment-button value="announcement"><ion-label>Announcement</ion-label></ion-segment-button>
+      </ion-segment>
+      <ion-item lines="full" class="fld">
+        <ion-input [(ngModel)]="title" label="Title" labelPlacement="floating" placeholder="e.g. Zoho drive registration open"></ion-input>
+      </ion-item>
+      <ion-item lines="full" class="fld">
+        <ion-textarea [(ngModel)]="message" label="Message" labelPlacement="floating" [autoGrow]="true" [rows]="3"
+                      placeholder="Details, eligibility, venue…"></ion-textarea>
+      </ion-item>
+      <ion-button expand="block" (click)="publish()" class="pub">
+        <ion-icon name="send" slot="start"></ion-icon>Publish to all students
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <h3 class="sec">Published ({{ items.length }})</h3>
+
+  <ion-card *ngFor="let n of items" class="notif">
+    <ion-card-content>
+      <div class="nicon" [class]="'nicon ' + iconColor(n.type)">
+        <ion-icon [name]="icon(n.type)"></ion-icon>
+      </div>
+      <div class="nbody">
+        <b>{{ n.title }}</b>
+        <p>{{ n.message }}</p>
+        <span class="when"><ion-icon name="time"></ion-icon> {{ ago(n.date) }}</span>
+      </div>
+      <ion-button fill="clear" size="small" (click)="remove(n)">
+        <ion-icon name="trash" slot="icon-only" color="danger"></ion-icon>
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

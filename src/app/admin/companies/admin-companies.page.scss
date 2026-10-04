@@ -1,0 +1,51 @@
+.card {
+  border-radius: 16px;
+  margin: 0 0 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+
+  .row { display: flex; align-items: center; gap: 12px; }
+
+  .logo {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    b { font-size: 0.95rem; }
+    span { font-size: 0.8rem; color: var(--ion-color-medium); }
+    small { font-size: 0.7rem; color: var(--ion-color-medium); }
+  }
+
+  .acts { display: flex; }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 12px;
+    font-size: 0.76rem;
+    color: var(--ion-color-medium);
+
+    span { display: flex; align-items: center; gap: 4px; }
+    .urgent { color: var(--ion-color-danger); font-weight: 600; }
+  }
+}
+
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--ion-color-medium);
+  ion-icon { font-size: 3rem; }
+}

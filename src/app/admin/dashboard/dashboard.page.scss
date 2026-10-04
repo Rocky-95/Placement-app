@@ -1,0 +1,119 @@
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+
+  img { width: 26px; height: 26px; }
+}
+
+.stats {
+  padding: 0;
+
+  .stat {
+    background: var(--ion-card-background, #fff);
+    border-radius: 16px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    height: 100%;
+
+    .si {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+
+      &.primary { background: rgba(79, 70, 229, 0.12); color: var(--ion-color-primary); }
+      &.success { background: rgba(16, 185, 129, 0.12); color: var(--ion-color-success); }
+      &.warning { background: rgba(245, 158, 11, 0.14); color: var(--ion-color-warning); }
+      &.tertiary { background: rgba(139, 92, 246, 0.12); color: var(--ion-color-tertiary); }
+    }
+
+    b { font-size: 1.35rem; }
+    span { font-size: 0.72rem; color: var(--ion-color-medium); }
+  }
+}
+
+.rate-card {
+  border-radius: 16px;
+  margin: 14px 0 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+
+  .rate-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+
+    h3 { margin: 0; font-size: 0.95rem; font-weight: 700; }
+    p { margin: 3px 0 0; font-size: 0.78rem; color: var(--ion-color-medium); }
+    .big { font-size: 1.8rem; color: var(--ion-color-success); }
+  }
+
+  ion-progress-bar { height: 10px; border-radius: 5px; }
+}
+
+.sec {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 20px 2px 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dept-card {
+  border-radius: 16px;
+  margin: 0;
+
+  .dept { margin-bottom: 14px; &:last-child { margin-bottom: 0; } }
+
+  .d-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+    span { font-weight: 600; }
+    b { color: var(--ion-color-medium); font-weight: 600; }
+  }
+
+  .bar {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--ion-color-light-shade);
+    overflow: hidden;
+
+    .fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #4f46e5, #8b5cf6);
+    }
+  }
+}
+
+.drives-card {
+  border-radius: 16px;
+  margin: 0 0 20px;
+
+  ion-list { padding: 4px 0; }
+
+  .tlogo {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+  }
+}

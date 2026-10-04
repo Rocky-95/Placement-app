@@ -1,0 +1,33 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>Notifications</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="markAll()" *ngIf="data.unreadCount > 0">
+        <ion-icon name="checkmark-done" slot="start"></ion-icon>Mark read
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card *ngFor="let n of items" class="notif" [class.unread]="!n.read">
+    <ion-card-content>
+      <div class="nicon" [class]="'nicon ' + iconColor(n.type)">
+        <ion-icon [name]="icon(n.type)"></ion-icon>
+      </div>
+      <div class="nbody">
+        <div class="nhead">
+          <b>{{ n.title }}</b>
+          <span class="dot" *ngIf="!n.read"></span>
+        </div>
+        <p>{{ n.message }}</p>
+        <span class="when"><ion-icon name="time"></ion-icon> {{ ago(n.date) }}</span>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="items.length === 0" class="empty">
+    <ion-icon name="notifications"></ion-icon>
+    <p>No notifications yet.</p>
+  </div>
+</ion-content>

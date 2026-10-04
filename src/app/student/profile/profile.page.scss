@@ -1,0 +1,132 @@
+.id-card {
+  border-radius: 20px;
+  margin: 0 0 12px;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #fff;
+
+  .id-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 800;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    flex-shrink: 0;
+  }
+
+  .id-info {
+    flex: 1;
+    h2 { margin: 0 0 4px; font-size: 1.2rem; font-weight: 800; }
+    p {
+      margin: 2px 0;
+      font-size: 0.75rem;
+      opacity: 0.9;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  }
+
+  .score-chip {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 14px;
+    padding: 8px 12px;
+    text-align: center;
+    b { display: block; font-size: 1.05rem; }
+    span { font-size: 0.6rem; opacity: 0.9; }
+  }
+
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 14px;
+    font-size: 0.78rem;
+    opacity: 0.92;
+
+    span { display: flex; align-items: center; gap: 5px; }
+  }
+}
+
+.placed-card {
+  border-radius: 16px;
+  margin: 0 0 12px;
+  border: 1px solid var(--ion-color-success);
+
+  ion-card-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .trophy {
+    font-size: 2rem;
+    color: #f59e0b;
+  }
+
+  b { font-size: 0.95rem; color: var(--ion-color-success-shade); }
+  p { margin: 2px 0 0; font-size: 0.8rem; color: var(--ion-color-medium); }
+}
+
+.sec {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 18px 2px 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.block {
+  border-radius: 16px;
+  margin: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+
+  .kv {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 0.88rem;
+
+    span { color: var(--ion-color-medium); }
+    b.good { color: var(--ion-color-success); }
+    b.bad { color: var(--ion-color-danger); }
+  }
+
+  ion-list { padding: 4px 0; }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  ion-chip { margin: 0; }
+}
+
+.none {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--ion-color-medium);
+}
+
+.mini-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+}

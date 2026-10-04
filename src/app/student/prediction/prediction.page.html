@@ -1,0 +1,80 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>AI Placement Prediction</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="reanalyze()" [disabled]="analyzing">
+        <ion-icon name="refresh" slot="icon-only" [class.spin]="analyzing"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" *ngIf="result">
+  <!-- Score gauge -->
+  <ion-card class="gauge-card">
+    <ion-card-content>
+      <div class="gauge">
+        <svg viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="var(--ion-color-light-shade)" stroke-width="11"/>
+          <circle cx="60" cy="60" r="52" fill="none" [attr.stroke]="color()" stroke-width="11"
+                  stroke-linecap="round" [attr.stroke-dasharray]="CIRC"
+                  [attr.stroke-dashoffset]="CIRC - (CIRC * result.score / 100)"
+                  transform="rotate(-90 60 60)" class="arc"/>
+        </svg>
+        <div class="gauge-txt">
+          <b>{{ result.score }}%</b>
+          <span>Placement<br/>probability</span>
+        </div>
+      </div>
+      <ion-chip [color]="chipColor()" class="verdict">
+        <ion-icon name="sparkles"></ion-icon>
+        <ion-label>{{ result.label }} Chance of Placement</ion-label>
+      </ion-chip>
+      <p class="model-note">
+        <ion-icon name="analytics"></ion-icon>
+        Scored by the placement ML model on {{ student.name }}'s profile
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Factor breakdown -->
+  <h3 class="sec">Score breakdown</h3>
+  <ion-card class="factors">
+    <ion-card-content>
+      <div class="factor" *ngFor="let f of result.factors">
+        <div class="f-head">
+          <ion-icon [name]="f.icon" color="primary"></ion-icon>
+          <span class="f-label">{{ f.label }}</span>
+          <b>{{ f.score }}/{{ f.max }}</b>
+        </div>
+        <ion-progress-bar [value]="f.score / f.max" [color]="factorColor(f)"></ion-progress-bar>
+        <small>{{ f.note }}</small>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Suggestions -->
+  <h3 class="sec"><ion-icon name="bulb" color="warning"></ion-icon> AI Recommendations</h3>
+  <ion-card class="sugg">
+    <ion-list lines="none">
+      <ion-item *ngFor="let s of result.suggestions">
+        <ion-icon name="checkmark-circle" slot="start" color="primary"></ion-icon>
+        <ion-label class="ion-text-wrap">{{ s }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <!-- How it works -->
+  <h3 class="sec">How the prediction works</h3>
+  <div class="timeline">
+    <div class="step" *ngFor="let st of steps; let i = index">
+      <div class="step-icon"><ion-icon [name]="st.icon"></ion-icon></div>
+      <div class="step-body">
+        <b>Step {{ i + 1 }} — {{ st.title }}</b>
+        <p>{{ st.text }}</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="disclaimer">Demo build — the model runs locally. Production uses the Python + scikit-learn prediction API.</p>
+</ion-content>

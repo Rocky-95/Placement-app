@@ -1,0 +1,60 @@
+.fld {
+  --border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.range-fld {
+  background: var(--ion-card-background, #fff);
+  border-radius: 12px;
+  padding: 10px 14px 0;
+  margin-bottom: 12px;
+
+  .rf-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    span { color: var(--ion-color-medium); }
+  }
+}
+
+.lbl {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ion-color-medium);
+  margin: 16px 2px 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  ion-chip { margin: 0; }
+
+  .dot {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+
+    &.sel {
+      border-color: var(--ion-color-dark);
+      transform: scale(1.12);
+    }
+  }
+}
+
+.save {
+  margin: 24px 0 32px;
+  --border-radius: 14px;
+  font-weight: 600;
+}

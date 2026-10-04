@@ -1,0 +1,58 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>Preparation Courses</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar [(ngModel)]="query" (ionInput)="applyFilter()"
+                   placeholder="Search courses…" class="search"></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar color="primary" class="segbar">
+    <ion-segment [(ngModel)]="category" (ionChange)="applyFilter()" mode="md" scrollable="true">
+      <ion-segment-button value="all"><ion-label>All</ion-label></ion-segment-button>
+      <ion-segment-button *ngFor="let c of categories" [value]="c"><ion-label>{{ c }}</ion-label></ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <p class="intro">{{ rows.length }} curated tracks to get you placement-ready. Tap a course to see the syllabus.</p>
+
+  <ion-card *ngFor="let r of filtered" class="course-card" (click)="openDetail(r.course)" button>
+    <ion-card-content>
+      <div class="row">
+        <div class="tile" [style.background]="r.course.color">
+          <ion-icon [name]="r.course.icon"></ion-icon>
+        </div>
+        <div class="info">
+          <b>{{ r.course.title }}</b>
+          <span>{{ r.course.category }} · {{ r.course.level }}</span>
+        </div>
+        <div class="rating">
+          <ion-icon name="star"></ion-icon> {{ r.course.rating }}
+        </div>
+      </div>
+
+      <p class="desc">{{ r.course.description | slice:0:110 }}…</p>
+
+      <div class="meta">
+        <span><ion-icon name="layers"></ion-icon> {{ r.course.modules.length }} modules</span>
+        <span><ion-icon name="play-circle"></ion-icon> {{ r.lessons }} lessons</span>
+        <span><ion-icon name="time"></ion-icon> {{ r.hours }} hrs</span>
+        <span><ion-icon name="people"></ion-icon> {{ r.course.learners }}</span>
+      </div>
+
+      <div class="progress" *ngIf="r.enrolled">
+        <span class="p-label">
+          <ion-badge color="tertiary">Enrolled</ion-badge> {{ r.pct }}% complete
+        </span>
+        <ion-progress-bar [value]="r.pct / 100"
+                          [color]="r.pct === 100 ? 'success' : 'tertiary'"></ion-progress-bar>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="filtered.length === 0" class="empty">
+    <ion-icon name="search"></ion-icon>
+    <p>No courses match your search.</p>
+  </div>
+</ion-content>

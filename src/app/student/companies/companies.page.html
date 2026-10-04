@@ -1,0 +1,58 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>Placement Drives</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar [(ngModel)]="query" (ionInput)="applyFilter()"
+                   placeholder="Search company, role, domain…" class="search"></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar color="primary" class="segbar">
+    <ion-segment [(ngModel)]="filter" (ionChange)="applyFilter()" mode="md">
+      <ion-segment-button value="all"><ion-label>All ({{ rows.length }})</ion-label></ion-segment-button>
+      <ion-segment-button value="eligible"><ion-label>Eligible ({{ eligibleCount() }})</ion-label></ion-segment-button>
+      <ion-segment-button value="closed"><ion-label>Closed</ion-label></ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card *ngFor="let r of filtered" class="drive-card" (click)="openDetail(r.company)" button>
+    <ion-card-content>
+      <div class="row">
+        <div class="logo" [style.background]="r.company.color">{{ r.company.name.charAt(0) }}</div>
+        <div class="info">
+          <b>{{ r.company.name }}</b>
+          <span>{{ r.company.role }}</span>
+          <small>{{ r.company.domain }}</small>
+        </div>
+        <div class="badges">
+          <ion-badge *ngIf="r.applied" color="tertiary">Applied</ion-badge>
+          <ion-badge *ngIf="r.days <= 0" color="medium">Closed</ion-badge>
+          <ion-badge *ngIf="r.days > 0 && r.eligible" color="success">Eligible</ion-badge>
+          <ion-badge *ngIf="r.days > 0 && !r.eligible" color="medium">Not eligible</ion-badge>
+        </div>
+      </div>
+
+      <div class="meta">
+        <span><ion-icon name="cash"></ion-icon> ₹{{ r.company.ctc }} LPA</span>
+        <span><ion-icon name="location"></ion-icon> {{ r.company.location }}</span>
+        <span *ngIf="r.days > 0" [class.urgent]="r.days <= 5">
+          <ion-icon name="time"></ion-icon> {{ r.days }}d left
+        </span>
+        <span *ngIf="r.days <= 0"><ion-icon name="close-circle"></ion-icon> Closed</span>
+      </div>
+
+      <div class="skillbar" *ngIf="r.company.requiredSkills.length">
+        <span class="sb-label">Skill match {{ r.skillPct }}%</span>
+        <ion-progress-bar [value]="r.skillPct / 100"
+                          [color]="r.skillPct === 100 ? 'success' : r.skillPct >= 60 ? 'warning' : 'danger'">
+        </ion-progress-bar>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="filtered.length === 0" class="empty">
+    <ion-icon name="search"></ion-icon>
+    <p>No drives match your search.</p>
+  </div>
+</ion-content>

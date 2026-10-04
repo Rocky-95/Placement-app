@@ -1,0 +1,50 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/student/home" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="bot-head">
+        <div class="bot-avatar"><ion-icon name="sparkles"></ion-icon></div>
+        <div class="bot-name">
+          <b>Placement Assistant</b>
+          <span><i class="dot"></i> Online — replies instantly</span>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="chat-content">
+  <div class="chat">
+    <div *ngFor="let m of messages; trackBy: trackByTime" class="msg" [class.me]="m.from === 'me'">
+      <div class="mavatar" *ngIf="m.from === 'bot'"><ion-icon name="sparkles"></ion-icon></div>
+      <div class="bubble">
+        <p>{{ m.text }}</p>
+        <span class="t">{{ m.time | date:'h:mm a' }}</span>
+      </div>
+    </div>
+
+    <div class="msg" *ngIf="typing">
+      <div class="mavatar"><ion-icon name="sparkles"></ion-icon></div>
+      <div class="bubble typing"><i></i><i></i><i></i></div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="chips" *ngIf="suggestions.length && !typing">
+    <ion-chip *ngFor="let s of suggestions" (click)="send(s)" color="primary" outline>
+      <ion-label>{{ s }}</ion-label>
+    </ion-chip>
+  </ion-toolbar>
+  <ion-toolbar class="composer">
+    <ion-input [(ngModel)]="draft" placeholder="Ask a doubt…" clearInput="true"
+               (keydown.enter)="send()" class="input"></ion-input>
+    <ion-buttons slot="end">
+      <ion-button (click)="send()" [disabled]="!draft.trim() || typing" class="send-btn">
+        <ion-icon name="send" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

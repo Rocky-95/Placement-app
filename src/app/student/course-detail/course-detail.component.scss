@@ -1,0 +1,169 @@
+.detail-bar {
+  --color: #fff;
+}
+
+.head {
+  text-align: center;
+  padding: 8px 0 4px;
+
+  .bigtile {
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    margin: 0 auto 10px;
+    color: #fff;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  }
+
+  h2 { margin: 4px 0 2px; font-size: 1.2rem; font-weight: 700; }
+  p {
+    margin: 0 0 10px;
+    color: var(--ion-color-medium);
+    font-size: 0.85rem;
+  }
+
+  .pill {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+.facts {
+  padding: 0;
+  margin-top: 8px;
+
+  .fact {
+    background: var(--ion-card-background, #fff);
+    border-radius: 14px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    text-align: center;
+
+    ion-icon { font-size: 1.3rem; }
+    b { font-size: 0.82rem; }
+    span { font-size: 0.68rem; color: var(--ion-color-medium); }
+  }
+}
+
+.progress-wrap {
+  margin-top: 12px;
+
+  ion-progress-bar {
+    height: 8px;
+    border-radius: 4px;
+  }
+}
+
+.desc {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--ion-color-dark);
+  margin: 16px 2px;
+}
+
+.sec {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 16px 2px 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  ion-icon { color: var(--ion-color-primary); }
+}
+
+.outcomes {
+  border-radius: 14px;
+  padding: 4px 0;
+
+  ion-label { font-size: 0.84rem; }
+}
+
+.modules {
+  border-radius: 14px;
+  overflow: hidden;
+
+  ion-accordion {
+    margin-bottom: 8px;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  ion-item h3 { font-size: 0.88rem; font-weight: 600; }
+  ion-item p { font-size: 0.72rem; }
+}
+
+.lessons {
+  padding: 4px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .lesson {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 10px;
+    border-radius: 12px;
+    background: var(--ion-color-light, #f4f5f8);
+
+    &.clickable { cursor: pointer; }
+    &.done { opacity: 0.65; }
+    &.done b { text-decoration: line-through; }
+
+    .tick { font-size: 1.3rem; margin-top: 2px; flex-shrink: 0; }
+
+    .lbody {
+      flex: 1;
+      min-width: 0;
+
+      b { font-size: 0.84rem; display: block; }
+      > span {
+        font-size: 0.72rem;
+        color: var(--ion-color-medium);
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin: 2px 0 6px;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 16px;
+
+        li {
+          font-size: 0.78rem;
+          color: var(--ion-color-dark);
+          line-height: 1.45;
+          margin-bottom: 2px;
+        }
+      }
+    }
+  }
+}
+
+.actions {
+  margin: 22px 0 30px;
+
+  ion-button { --border-radius: 14px; font-weight: 600; }
+
+  .hint {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--ion-color-medium);
+    margin-top: 8px;
+  }
+}

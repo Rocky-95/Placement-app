@@ -1,0 +1,99 @@
+.search {
+  --border-radius: 12px;
+  padding-bottom: 8px;
+}
+
+.segbar {
+  padding: 0 10px 8px;
+
+  ion-segment {
+    --background: rgba(255, 255, 255, 0.18);
+  }
+
+  ion-segment-button {
+    --color: rgba(255, 255, 255, 0.85);
+    --color-checked: #fff;
+    --indicator-color: rgba(255, 255, 255, 0.35);
+    min-height: 34px;
+    font-size: 0.78rem;
+  }
+}
+
+.drive-card {
+  border-radius: 16px;
+  margin: 0 0 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+
+    b { font-size: 0.98rem; }
+    span { font-size: 0.82rem; color: var(--ion-color-medium); }
+    small { font-size: 0.72rem; color: var(--ion-color-medium); }
+  }
+
+  .badges {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
+  }
+
+  .meta {
+    display: flex;
+    gap: 14px;
+    margin-top: 12px;
+    font-size: 0.78rem;
+    color: var(--ion-color-medium);
+    flex-wrap: wrap;
+
+    span { display: flex; align-items: center; gap: 4px; }
+    .urgent { color: var(--ion-color-danger); font-weight: 600; }
+  }
+
+  .skillbar {
+    margin-top: 12px;
+
+    .sb-label {
+      font-size: 0.72rem;
+      color: var(--ion-color-medium);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    ion-progress-bar {
+      height: 6px;
+      border-radius: 3px;
+    }
+  }
+}
+
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--ion-color-medium);
+
+  ion-icon { font-size: 3rem; }
+}

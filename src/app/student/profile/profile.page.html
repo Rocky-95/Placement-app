@@ -1,0 +1,100 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>My Profile</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="edit()"><ion-icon name="create" slot="icon-only"></ion-icon></ion-button>
+      <ion-button (click)="logout()"><ion-icon name="log-out" slot="icon-only"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" *ngIf="student">
+  <!-- Identity card -->
+  <ion-card class="id-card">
+    <ion-card-content>
+      <div class="id-row">
+        <div class="avatar" [style.background]="student.color">{{ initials() }}</div>
+        <div class="id-info">
+          <h2>{{ student.name }}</h2>
+          <p><ion-icon name="id-card"></ion-icon> {{ student.registerNo }}</p>
+          <p><ion-icon name="school"></ion-icon> B.Sc {{ student.department }}</p>
+        </div>
+        <div class="score-chip">
+          <b>{{ score }}%</b>
+          <span>AI Score</span>
+        </div>
+      </div>
+      <div class="contact">
+        <span><ion-icon name="mail"></ion-icon> {{ student.email }}</span>
+        <span><ion-icon name="call"></ion-icon> {{ student.phone }}</span>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Placement status -->
+  <ion-card *ngIf="student.placed" class="placed-card">
+    <ion-card-content>
+      <ion-icon name="trophy" class="trophy"></ion-icon>
+      <div>
+        <b>Placed at {{ student.placedCompany }}</b>
+        <p>{{ student.placedRole }} · ₹{{ student.placedPackage }} LPA</p>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Academics -->
+  <h3 class="sec">Academic Details</h3>
+  <ion-card class="block">
+    <ion-card-content>
+      <div class="kv"><span>CGPA</span><b>{{ student.cgpa.toFixed(2) }} / 10</b></div>
+      <div class="kv">
+        <span>Standing Arrears</span>
+        <b [class.bad]="student.arrears > 0" [class.good]="student.arrears === 0">
+          {{ student.arrears === 0 ? 'None' : student.arrears }}
+        </b>
+      </div>
+      <div class="kv"><span>Applications Sent</span><b>{{ appliedCount() }}</b></div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Skills -->
+  <h3 class="sec"><ion-icon name="code-slash" color="primary"></ion-icon> Skills</h3>
+  <div class="chips">
+    <ion-chip *ngFor="let sk of student.skills" color="primary" outline>
+      <ion-label>{{ sk }}</ion-label>
+    </ion-chip>
+    <p *ngIf="!student.skills.length" class="none">No skills added yet — tap edit to add some.</p>
+  </div>
+
+  <!-- Certifications -->
+  <h3 class="sec"><ion-icon name="ribbon" color="warning"></ion-icon> Certifications</h3>
+  <ion-card class="block">
+    <ion-list lines="inset">
+      <ion-item *ngFor="let c of student.certifications">
+        <ion-icon name="ribbon" slot="start" color="warning"></ion-icon>
+        <ion-label>{{ c }}</ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-card-content *ngIf="!student.certifications.length">
+      <p class="none">No certifications yet.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Applications -->
+  <h3 class="sec"><ion-icon name="briefcase" color="tertiary"></ion-icon> My Applications</h3>
+  <ion-card class="block">
+    <ion-list lines="inset">
+      <ion-item *ngFor="let x of appliedCompanies()">
+        <div class="mini-logo" slot="start" [style.background]="x.company.color">{{ x.company.name.charAt(0) }}</div>
+        <ion-label>
+          <h3>{{ x.company.name }}</h3>
+          <p>{{ x.company.role }} · Applied {{ x.app.date | date:'dd MMM' }}</p>
+        </ion-label>
+        <ion-badge slot="end" color="tertiary">Under review</ion-badge>
+      </ion-item>
+    </ion-list>
+    <ion-card-content *ngIf="appliedCount() === 0">
+      <p class="none">No applications yet — browse the Drives tab.</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

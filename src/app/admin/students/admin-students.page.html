@@ -1,0 +1,44 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>Students</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar [(ngModel)]="query" (ionInput)="applyFilter()"
+                   placeholder="Search name, reg no, dept…"></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar color="primary" class="segbar">
+    <ion-segment [(ngModel)]="filter" (ionChange)="applyFilter()" mode="md">
+      <ion-segment-button value="all"><ion-label>All</ion-label></ion-segment-button>
+      <ion-segment-button value="placed"><ion-label>Placed</ion-label></ion-segment-button>
+      <ion-segment-button value="unplaced"><ion-label>Unplaced</ion-label></ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card *ngFor="let r of filtered" class="card" (click)="openDetail(r.student)" button>
+    <ion-card-content>
+      <div class="row">
+        <div class="avatar" [style.background]="r.student.color">{{ initials(r.student.name) }}</div>
+        <div class="info">
+          <b>{{ r.student.name }}</b>
+          <span>{{ r.student.registerNo }} · {{ r.student.department }}</span>
+          <small>CGPA {{ r.student.cgpa.toFixed(1) }} · {{ r.student.arrears }} arrear(s) · {{ r.eligible }} eligible drives</small>
+        </div>
+        <div class="right">
+          <ion-badge [color]="scoreColor(r.score)">
+            <ion-icon name="sparkles"></ion-icon> {{ r.score }}%
+          </ion-badge>
+          <ion-badge *ngIf="r.student.placed" color="success" class="placed">
+            <ion-icon name="trophy"></ion-icon> Placed
+          </ion-badge>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="!filtered.length" class="empty">
+    <ion-icon name="search"></ion-icon>
+    <p>No students match.</p>
+  </div>
+</ion-content>

@@ -1,0 +1,75 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar [style.--background]="company.color" class="detail-bar">
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()"><ion-icon name="close" slot="icon-only"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>{{ company.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="head">
+    <div class="biglogo" [style.background]="company.color">{{ company.name.charAt(0) }}</div>
+    <h2>{{ company.role }}</h2>
+    <p><ion-icon name="business"></ion-icon> {{ company.domain }}</p>
+    <ion-badge *ngIf="elig.eligible" color="success" class="pill">
+      <ion-icon name="checkmark-circle"></ion-icon> You are eligible
+    </ion-badge>
+    <ion-badge *ngIf="!elig.eligible" color="danger" class="pill">
+      <ion-icon name="close-circle"></ion-icon> Criteria not met
+    </ion-badge>
+  </div>
+
+  <ion-grid class="facts">
+    <ion-row>
+      <ion-col size="6">
+        <div class="fact"><ion-icon name="cash" color="success"></ion-icon><b>₹{{ company.ctc }} LPA</b><span>Package</span></div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="fact"><ion-icon name="location" color="danger"></ion-icon><b>{{ company.location }}</b><span>Location</span></div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="fact"><ion-icon name="people" color="primary"></ion-icon><b>{{ company.openings }}</b><span>Openings</span></div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="fact">
+          <ion-icon name="time" [color]="days() <= 5 ? 'danger' : 'warning'"></ion-icon>
+          <b>{{ days() > 0 ? days() + ' days' : 'Closed' }}</b><span>Deadline · {{ company.deadline | date:'dd MMM' }}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <p class="desc">{{ company.description }}</p>
+
+  <h3 class="sec">Eligibility check</h3>
+  <ion-list class="checks">
+    <ion-item *ngFor="let k of elig.checks" lines="none">
+      <ion-icon slot="start" [name]="k.passed ? 'checkmark-circle' : 'close-circle'"
+                [color]="k.passed ? 'success' : 'danger'"></ion-icon>
+      <ion-label>
+        <h3>{{ k.label }}</h3>
+        <p>{{ k.detail }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <h3 class="sec">Required skills</h3>
+  <div class="skills">
+    <ion-chip *ngFor="let sk of company.requiredSkills"
+              [color]="elig.missingSkills.includes(sk) ? 'danger' : 'success'" outline>
+      <ion-icon [name]="elig.missingSkills.includes(sk) ? 'close-circle' : 'checkmark-done'"></ion-icon>
+      <ion-label>{{ sk }}</ion-label>
+    </ion-chip>
+  </div>
+
+  <div class="actions">
+    <ion-button expand="block" size="large" (click)="apply()"
+                [disabled]="applied || !elig.eligible || days() <= 0"
+                [color]="applied ? 'tertiary' : 'primary'">
+      <ion-icon [name]="applied ? 'checkmark-done' : 'open-outline'" slot="start"></ion-icon>
+      {{ applied ? 'Application Submitted' : !elig.eligible ? 'Not Eligible to Apply' : days() <= 0 ? 'Drive Closed' : 'Apply Now' }}
+    </ion-button>
+    <p class="hint" *ngIf="!applied && elig.eligible">Official portal: {{ company.applyLink }}</p>
+  </div>
+</ion-content>

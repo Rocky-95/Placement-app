@@ -1,0 +1,47 @@
+.fld {
+  --border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.range-fld {
+  background: var(--ion-card-background, #fff);
+  border-radius: 12px;
+  padding: 10px 14px 0;
+  margin-bottom: 12px;
+
+  .rf-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+
+    span { color: var(--ion-color-medium); }
+  }
+}
+
+.lbl {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ion-color-medium);
+  margin: 16px 2px 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+
+  ion-chip { margin: 0; }
+}
+
+.cert-input {
+  border-radius: 12px;
+}
+
+.save {
+  margin: 22px 0 30px;
+  --border-radius: 14px;
+  font-weight: 600;
+}
