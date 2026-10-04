@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular/lazy';
 import { addIcons } from 'ionicons';
 import { home, briefcase, book, sparkles, notifications, person, chatbubbleEllipses } from 'ionicons/icons';
@@ -10,13 +10,11 @@ import { DataService } from '../../services/data.service';
   selector: 'app-student-tabs',
   template: `
     <ion-tabs>
-      @if (!onChat) {
-        <ion-fab vertical="bottom" horizontal="end">
-          <ion-fab-button routerLink="/student/chat" aria-label="Chat with placement assistant">
-            <ion-icon name="chatbubble-ellipses"></ion-icon>
-          </ion-fab-button>
-        </ion-fab>
-      }
+      <ion-fab vertical="bottom" horizontal="end">
+        <ion-fab-button routerLink="/student/chat" aria-label="Chat with placement assistant">
+          <ion-icon name="chatbubble-ellipses"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
       <ion-tab-bar slot="bottom">
         <ion-tab-button tab="home">
           <ion-icon name="home"></ion-icon>
@@ -51,10 +49,9 @@ import { DataService } from '../../services/data.service';
   imports: [IonicModule, CommonModule, RouterModule],
 })
 export class StudentTabsPage {
-  constructor(public data: DataService, private router: Router) {
+  constructor(public data: DataService) {
     addIcons({ home, briefcase, book, sparkles, notifications, person, chatbubbleEllipses });
   }
 
   get unread(): number { return this.data.unreadCount; }
-  get onChat(): boolean { return this.router.url.includes('/student/chat'); }
 }
